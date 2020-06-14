@@ -2,10 +2,11 @@ import numpy as np
 import soundfile as sf
 import os
 from tqdm import tqdm
-from transform import *
+from .transform import *
 
 
-wanted_appl = ['CFL','Charger','DrillingMachine','Fan','FlatIron','GameConsole','HairDryer','Iron','Kettle','LEDLight',
+
+wanted_appl = ['CFL','DrillingMachine','Fan','FlatIron','GameConsole','HairDryer','Iron','Kettle','LEDLight',
                'LightBulb', 'Massage', 'Microwave', 'Mixer', 'Monitor', 'PowerSupply','ShoeWarmer','Shredder','SolderingIron',
                'Toaster','VacuumCleaner','WaterHeater' ]
 
@@ -194,6 +195,7 @@ def get_train_test_leave_out_whited(dataset, n=9):
 def get_train_test_data(train_set, test_set, idx=0):
     train=train_set[idx]
     test=test_set[idx]
+    
     train_X = []
     train_y = []
     
@@ -201,7 +203,7 @@ def get_train_test_data(train_set, test_set, idx=0):
          for i in range(len(items)):
                 train_X.append(items[i])
                 train_y.append(key)
-
+   
     test_X = []
     test_y = []
     
@@ -209,5 +211,5 @@ def get_train_test_data(train_set, test_set, idx=0):
          for i in range(len(items)):
                 test_X.append(items[i])
                 test_y.append(key)
-                
+            
     return np.array(train_X), np.array(train_y), np.array(test_X), np.array(test_y)

@@ -11,25 +11,45 @@ import itertools
 nice_fonts = {
         # Use LaTeX to write all text
         "text.usetex": True,
+        "text.latex.preamble" : [r'\usepackage{amsmath}',r'\usepackage{amssymb}'],
         "font.family": "serif",
-        # Use 10pt font in plots, to match 10pt font in document
-        "axes.labelsize": 20,
-        "font.size": 20,
+        # Always save as 'tight'
+        "savefig.bbox" : "tight",
+        "savefig.pad_inches" : 0.05,
+        "xtick.direction" : "in",
+        "xtick.major.size" : 3,
+        "xtick.major.width" : 0.5,
+        "xtick.minor.size" : 1.5,
+        "xtick.minor.width" : 0.5,
+        "xtick.minor.visible" : False,
+        "xtick.top" : True,
+        "ytick.direction" : "in",
+        "ytick.major.size" : 3,
+        "ytick.major.width" : 0.5,
+        "ytick.minor.size" : 1.5,
+        "ytick.minor.width" : 0.5,
+        "ytick.minor.visible" : False,
+        "ytick.right" : True,
+        "figure.dpi" : 600,
+        "font.serif" : "Times New Roman",
+        "mathtext.fontset" : "dejavuserif",
+        "axes.labelsize": 14,
+        "font.size": 16,
         # Make the legend/label fonts a little smaller
-        "legend.fontsize": 12,
-        "xtick.labelsize": 18,
-        "ytick.labelsize": 18,
+        "legend.fontsize": 16,
+        "xtick.labelsize": 16,
+        "ytick.labelsize": 16,
+        # Set line widths
+        "axes.linewidth" : 0.5,
+        "grid.linewidth" : 0.5,
+        "lines.linewidth" : 1.,
+        # Remove legend frame
+        "legend.frameon" : False
 }
 matplotlib.rcParams.update(nice_fonts)
 SPINE_COLOR="gray"
-
-lilac_names=['1-phase-motor', '3-phase-motor', 'Bulb',
-       'CoffeeMaker', 'Drilling', 'Dumper',
-       'FluorescentLamp', 'Freq-conv-squirrel-3', 'HairDryer',
-       'Kettle', 'Raclette', 'Refrigerator', 'Resistor',
-       'Squirrel-3', 'Squirrel-3-2x', 'Vacuum']
-
-plaid_names = ['CFL','ILB','Waterkettle','Fan','AC','HairIron','LaptopCharger','SolderingIron','Fridge','Vacuum','CoffeeMaker','FridgeDefroster']
+colors =[plt.cm.Blues(0.6), plt.cm.Reds(0.4), plt.cm.Greens(0.6), '#ffcc99', plt.cm.Greys(0.6)]
+SPINE_COLOR="gray"
 
 
 def set_box_color(bp, color):
@@ -43,13 +63,13 @@ def set_figure_size(fig_width=None, fig_height=None, columns=2):
     assert(columns in [1,2])
 
     if fig_width is None:
-        fig_width = 3.39 if columns==1 else 6.9 # width in inches
+        fig_width = 4.39 if columns==1 else 7.9 # width in inches
 
     if fig_height is None:
         golden_mean = (np.sqrt(5)-1.0)/2.0    # Aesthetic ratio
         fig_height = fig_width*golden_mean # height in inches
 
-    MAX_HEIGHT_INCHES = 8.0
+    MAX_HEIGHT_INCHES = 10.0
     if fig_height > MAX_HEIGHT_INCHES:
         print("WARNING: fig_height too large:" + fig_height + 
               "so will reduce to" + MAX_HEIGHT_INCHES + "inches.")
@@ -177,24 +197,31 @@ def plot_confusion_matrix(cm, classes,
     
     plt.imshow(cmNorm, interpolation='nearest', cmap=cmap)
     tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=90, fontsize = 20)
-    plt.yticks(tick_marks, classes, fontsize = 20)
+    plt.xticks(tick_marks, classes, rotation=90, fontsize=18)
+    plt.yticks(tick_marks, classes, fontsize=18)
 
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
     thresh = 0.5
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, int(cm[i, j]),
+        plt.text(j, i, int(cm[i, j]),fontsize=14,
                  horizontalalignment="center",
-                 color="white" if cmNorm[i, j] > thresh else "black",fontsize=20) #10
+                 color="white" if cmNorm[i, j] > thresh else "black") #10
 
     plt.tight_layout()
-    plt.ylabel('True label', fontsize = 25)
-    plt.xlabel('Predicted label', fontsize = 25)
+    plt.ylabel('True label', fontsize=16)
+    plt.xlabel('Predicted label', fontsize=16)
+    ax = plt.gca()
+    #ax.tick_params(axis="both", which="both", bottom=False, 
+               #top=False, labelbottom=True, left=False, right=False, labelleft=True)
+    #plt.yticks([])
+    #plt.xticks([])
     if title:
-        plt.title(title, fontsize = 25)
-    
+        plt.title(title)
+
+
+     
         
 def plot_Fmeasure(cm, n, title="Fmacro"):
     av = 0
@@ -220,9 +247,9 @@ def plot_Fmeasure(cm, n, title="Fmacro"):
     a = '{0:0.02f}'.format(av)
     b = '$Fmacro =\ $'+a
     if av > 75:
-        plt.text(av-27,0.1,b,color='darkorange')
+        plt.text(av-27,0.1,b,color='darkorange', fontsize=14)
     else:
-        plt.text(av+2,0.1,b,color='darkorange')
+        plt.text(av+2,0.1,b,color='darkorange',  fontsize=14)
     ax.set_xlabel("$Fmacro$",fontsize=18)
     ax.set_ylabel("",fontsize=20)
     ax.tick_params(axis='both', which='major', labelsize=18)
@@ -245,27 +272,36 @@ def get_Fmeasure(cm, n):
         p.append(F*100)
 
     av = av/len(n)*100
-    return av
+    return p, av
     
     
-def vis_results(true, pred, dataset, fig_path):
-    
-    cm = confusion_matrix(true, pred)
-    plot_Fmeasure(cm, apps[dataset], title=None)
-    savefig(f"{fig_path}_fm",format=".pdf")
-    
-    if dataset=="whited":
-         fig, ax = plt.subplots(figsize=(12, 10))
-    else:
-         fig, ax = plt.subplots(figsize=(10, 8))
-    plot_confusion_matrix(cm, apps[dataset], title=None)
-   
-    
-    
-def get_fscore(true, pred, dataset):
-    cm = confusion_matrix(true, pred)
-    f1 = get_Fmeasure(cm, apps[dataset])
+def get_fscore(cm, names):
+    f1 = get_Fmeasure(cm, names)
     return f1
 
-
-
+def plot_multiple_fscore(names, cm_vi,cm_rp, labels=["V-I", "WRG"]):
+    width = 0.4
+    #sns.set_color_codes("pastel")
+    f1_vi,av_vi = get_fscore(cm_vi, names)
+    f1_rp,av_rp = get_fscore(cm_rp, names)
+    av = max(av_vi, av_rp)
+    width=0.4
+    plt.barh(np.arange(len(f1_vi)), f1_vi, width, align='center', color=colors[0], label=labels[0])
+    plt.barh(np.arange(len(f1_rp))+ width, f1_rp, width, align='center',color='darkorange', alpha=0.8, label=labels[1])
+    ax = plt.gca()
+    ax.set(yticks=np.arange(len(names)) + width, yticklabels=names)
+    ax.set_xlabel("$F_1$ macro (\%)", fontsize=16)
+    ax.axvline(x=av,color='darkorange', linewidth=1.0, linestyle="--")
+    plt.setp(ax.get_yticklabels(), fontsize=16)
+    a = '{0:0.2f}'.format(av)
+    b = '$ $'+a
+    if av > 75:
+        OFFSET = -0.7
+        plt.text(av-5,OFFSET,b,color='darkorange')
+    else:
+        OFFSET = 0
+        plt.text(av,OFFSET,b,color='darkorange')
+    ax.tick_params(axis='both', which='major')
+    ax.set_ylabel("", fontsize=16)
+    leg=legend(ax,ncol=2, pos=(0.5, -0.2))
+    return leg

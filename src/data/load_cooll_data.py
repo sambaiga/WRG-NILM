@@ -2,7 +2,7 @@ import numpy as np
 import soundfile as sf
 import os
 from tqdm import tqdm
-from transform import *
+from .transform import *
 wanted_appl = ["Drill", "Fan", "Grinder", "Hair", "Hedge", "Lamp", "Sander", "Saw", "Vacuum"]
 
 def align_voltage_current(i, v, NS):
