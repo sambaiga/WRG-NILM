@@ -6,7 +6,7 @@ The paper present a recurrence graph feature representation that gives a few mor
 <img src="WRG.jpg" width="100%" height="100%">
 
 We further, present a novel pre-processing procedure for extracting steady-state cycle activation current from current and voltage measurements. The pre-processing method ensures that the selected activation current is not a transient signal.
-Experimental evaluation in the three sub-metered datasets shows that the proposed WRG feature representation offers superior performance when compared to the V-I based image feature.
+Experimental evaluation in the three sub-metered datasets shows that the proposed WRG feature representation offers superior performance when compared to the V-I based image feature. We conduct evaluations on three sub-metered public datasets and comparing with the V-I image, which is its most direct competitor. We also conduct an empirical investigation on how different parameters of the proposed WRG influence classification performance
 
 ## Requirements
 
@@ -36,7 +36,7 @@ Our model achieves the following performance on the three sub-metered data-set:
 
 
 
-| Dataset         | V-I baseline  | WRG |
+| Dataset         | V-I baseline  | Proposed WRG |
 | ------------------ |---------------- | -------------- |
 | COOLL |    98.95        |      99.86      |
 | WHITED  |     89.63        |      97.23       |
