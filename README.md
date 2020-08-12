@@ -27,6 +27,25 @@ Experimental evaluation in the three sub-metered datasets shows that the propose
 3. The script used to analyse results and produce visualisation presented in this paper can be found in notebook directory
     - ResultsAnalysis notebook provide scripts for results and error analysis.
     - Visualizepaper notebook provide scripts for reproducing most of the figure used in this paper.
+    
+If you find this tool useful and use it (or parts of it), we ask you to cite the following work in your publications:
+> Faustine, A.; Pereira, L. Improved Appliance Classification in Non-Intrusive Load Monitoring Using Weighted Recurrence Graph and Convolutional Neural Networks. Energies 2020, 13, 3374.
+
+``tex
+@article{Faustine2020,
+  doi = {10.3390/en13133374},
+  url = {https://doi.org/10.3390/en13133374},
+  year = {2020},
+  month = jul,
+  publisher = {{MDPI} {AG}},
+  volume = {13},
+  number = {13},
+  pages = {3374},
+  author = {Anthony Faustine and Lucas Pereira},
+  title = {Improved Appliance Classification in Non-Intrusive Load Monitoring Using Weighted Recurrence Graph and Convolutional Neural Networks},
+  journal = {Energies}
+}
+``
 
 
 
