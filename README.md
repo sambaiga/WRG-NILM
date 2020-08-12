@@ -1,6 +1,6 @@
 # Improved Appliance Classification in  Non-Intrusive Load Monitoring using  Weighted Recurrence Plots and Convolutional Neural Networks.
 
-This repository is the official implementation of [Improved Appliance Classification in  Non-Intrusive Load Monitoring using  Weighted Recurrence Plots and Convolutional Neural Networks.](). 
+This repository is the official implementation of [Improved Appliance Classification in  Non-Intrusive Load Monitoring using  Weighted Recurrence Plots and Convolutional Neural Networks.](https://www.mdpi.com/1996-1073/13/13/3374/htm). 
 The paper present a recurrence graph feature representation that gives a few more values (WRG) instead of the binary output, which improves the robustness of appliance recognition. The WRG representation for activation current and voltage not only enhances appliance classification performance but also guarantees the appliance feature's uniqueness, which is highly desirable for generalization purposes. 
 
 <img src="WRG.jpg" width="100%" height="100%">
